@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## App structure
+- Mock data lives in src/data/mock.ts; no backend yet — the user asked for visual skeleton only.
+- App-specific UI lives in src/components/app/; shared nav (side pill + drawer, cart bar) is mounted in __root.tsx so every page gets it, cart bar hidden on /admin.
+- The app is dark-only: brand colors are tokens in src/styles.css :root (primary = gold, wine = burgundy); no .dark variant.
