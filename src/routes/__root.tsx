@@ -7,6 +7,7 @@ import {
   HeadContent,
   Scripts,
   type ErrorComponentProps,
+  useRouterState,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -14,8 +15,7 @@ import appCss from "../styles.css?url";
 import { CartProvider } from "@/components/app/cart-context";
 import { SideNav } from "@/components/app/side-nav";
 import { CartBar } from "@/components/app/cart-bar";
-import { useRouterState } from "@tanstack/react-router";
-import { reportLovableError } from "../lib/lovable-error-reporting";
+import { reportAppError } from "../lib/error-reporting";
 
 function NotFoundComponent() {
   return (
@@ -43,7 +43,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportAppError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (
@@ -79,30 +79,37 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
-    // Replace these placeholders with the app's name and description when first building the app.
-    // Each content route, / included, must still set its own head(). Never add og:image or
-    // twitter:image here: every page without its own would inherit the root's preview image.
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Vizinho Distribuidora — Delivery de bebidas" },
-      { name: "description", content: "Cerveja gelada, energéticos, destilados e conveniência na sua porta." },
-      
+      {
+        name: "description",
+        content: "Cerveja gelada, energéticos, destilados e conveniência na sua porta.",
+      },
       { property: "og:title", content: "Vizinho Distribuidora — Delivery de bebidas" },
-      { property: "og:description", content: "Cerveja gelada, energéticos, destilados e conveniência na sua porta." },
+      {
+        property: "og:description",
+        content: "Cerveja gelada, energéticos, destilados e conveniência na sua porta.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/logo-vizinho.jpeg" },
       { name: "twitter:card", content: "summary_large_image" },
-      
+      { name: "theme-color", content: "#0E0E10" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap",
+      },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "icon", href: "/icon-512.svg", type: "image/svg+xml", sizes: "512x512" },
+      { rel: "icon", href: "/icon-1024.svg", type: "image/svg+xml", sizes: "1024x1024" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.svg", type: "image/svg+xml" },
     ],
   }),
   shellComponent: RootShell,
@@ -131,7 +138,6 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <CartProvider>
         <SideNav />
         <Outlet />

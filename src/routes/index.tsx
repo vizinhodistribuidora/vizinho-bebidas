@@ -14,6 +14,7 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Peça cerveja, energético, destilados e conveniência com entrega rápida." },
       { property: "og:title", content: "Vizinho Distribuidora — Bebidas geladas no seu bairro" },
       { property: "og:description", content: "Peça cerveja, energético, destilados e conveniência com entrega rápida." },
+      { property: "og:image", content: "/logo-vizinho.jpeg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

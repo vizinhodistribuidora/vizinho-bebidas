@@ -8,8 +8,9 @@ export const Route = createFileRoute("/combos")({
     meta: [
       { title: "Combos Perfeitos — Vizinho Distribuidora" },
       { name: "description", content: "Kits prontos de bebidas e conveniência com preço especial." },
-      { property: "og:title", content: "Combos Perfeitos — Vizinho Distribuidora" },
+      { property: "og:title", content: "Vizinho Distribuidora — Combos Perfeitos" },
       { property: "og:description", content: "Kits prontos de bebidas e conveniência com preço especial." },
+      { property: "og:image", content: "/logo-vizinho.jpeg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

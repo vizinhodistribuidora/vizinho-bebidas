@@ -4,28 +4,28 @@
 
 - **React 19** with **TypeScript** — all components are typed `.tsx` files; no plain JS.
 - **TanStack Start** (full-stack React framework) with **TanStack Router** for file-based routing — routes live in `src/routes/`, the root layout is `__root.tsx`, and the generated route tree is `src/routeTree.gen.ts` (do not edit manually).
-- **Vite 8** as the build tool and dev server; **Nitro** for server-side rendering.
+- **Vite 8** as the build tool and dev server; **Nitro** with the Vercel preset for server-side rendering/deployment.
 - **Tailwind CSS v4** — configured entirely in `src/styles.css` via `@theme inline` and `@import "tailwindcss"`; no `tailwind.config.js` or PostCSS plugin.
-- **shadcn/ui** (Radix UI primitives + CVA) — all shared UI components live in `src/components/ui/`; app-specific components live in `src/components/app/`.
+- **shadcn/ui** (Radix UI primitives + CVA) — shared UI components live in `src/components/ui/`; app-specific components live in `src/components/app/`.
 - **TanStack Query** for server-state management — `QueryClient` is created per-request in `src/router.tsx` and provided via `QueryClientProvider` in `__root.tsx`.
 - **React Hook Form** + **Zod** for forms and schema validation.
 - **Lucide React** for icons; **Sonner** for toast notifications; **date-fns** for date formatting.
 - **Vitest** + **Testing Library** for unit/component tests; **ESLint** + **Prettier** for linting and formatting.
-- Dark-only UI — brand color tokens (gold `primary`, burgundy `wine`) are defined as oklch values in `src/styles.css` `:root`; there is no `.dark` variant.
+- Dark-only UI — brand tokens are in `src/styles.css` `:root`, with gold `primary` and burgundy `wine` colors.
 
 ## Library & Tool Rules
 
-- **UI components** — Always use shadcn/ui components from `src/components/ui/` before building custom ones. Do not edit files in `src/components/ui/` directly; create new components in `src/components/app/` if you need to customise behaviour.
-- **Styling** — Use Tailwind CSS utility classes exclusively. Do not write inline `style` props or separate CSS files. All design tokens (colors, fonts, shadows, gradients) must be defined in `src/styles.css` and referenced via Tailwind classes (e.g. `bg-primary`, `text-wine`).
-- **Colors** — All colors must use the `oklch()` format. Add new semantic colors by defining the variable in `:root` and registering it in `@theme inline` as `--color-<name>`.
-- **Routing** — Use TanStack Router file-based routes. Each route file exports a `Route` via `createFileRoute`. Set page-specific `<head>` meta in each route's `head()` option. Never edit `src/routeTree.gen.ts`.
-- **Data fetching** — Use TanStack Query (`useQuery`, `useMutation`) for any server state. Do not use `useEffect` + `fetch` for data fetching. Set caching defaults on the `QueryClient`, not the router.
-- **Forms** — Use React Hook Form with Zod resolvers (`@hookform/resolvers/zod`). Do not manage form state with `useState` for anything beyond trivial single-field inputs.
-- **Icons** — Use `lucide-react` exclusively. Do not add other icon libraries.
-- **Notifications** — Use `sonner` (`toast` from `sonner`) for all user-facing notifications. Do not use `alert()` or custom toast implementations.
-- **Date handling** — Use `date-fns` for all date manipulation and formatting. Do not use `moment`, `dayjs`, or native `Date` methods for formatting.
-- **App state** — Use React Context for app-wide state (see `src/components/app/cart-context.tsx`). Use component-level `useState` for local UI state. Do not introduce Redux, Zustand, or other state libraries.
-- **Mock data** — All mock/static data lives in `src/data/mock.ts`. Do not scatter hardcoded data across components.
-- **Error reporting** — Use `reportLovableError` from `src/lib/lovable-error-reporting.ts` in error boundaries. Do not add other error-tracking services.
-- **Testing** — Write tests with Vitest + Testing Library in `src/test/`. Do not add Jest or other test runners.
-- **No new dependencies** — Do not add npm packages without checking if an existing dependency already covers the need. The project already includes Radix UI, Recharts, Embla Carousel, cmdk, vaul, and others.
+- **UI components** — Use existing shadcn/ui components from `src/components/ui/` before creating custom primitives. Do not edit existing files in that directory; add app-specific behavior in `src/components/app/`.
+- **Styling** — Use Tailwind CSS utility classes. Keep global design tokens and base styles in `src/styles.css`; do not add separate CSS files for components.
+- **Colors** — Use the app's semantic color utilities. Define any new semantic color as an `oklch()` variable in `src/styles.css` and register it in `@theme inline`.
+- **Routing** — Use TanStack Router file-based routes. Each route exports `Route` via `createFileRoute` and defines page-specific metadata in `head()`. Never edit generated `src/routeTree.gen.ts`.
+- **Data fetching** — Use TanStack Query (`useQuery`, `useMutation`) for server state; do not use `useEffect` + `fetch`. Set cache defaults on `QueryClient`.
+- **Forms** — Use React Hook Form with Zod schemas and `@hookform/resolvers`; use local component state only for trivial inputs/UI state.
+- **Icons** — Use `lucide-react`; do not add another icon library.
+- **Notifications** — Use Sonner (`toast` from `sonner`) for user-facing notifications; do not use `alert()` or custom toast implementations.
+- **Dates** — Use `date-fns` for parsing, manipulation, and formatting; avoid other date libraries and native date formatting.
+- **App state** — Use React Context for app-wide state (see `src/components/app/cart-context.tsx`) and component state for local UI. Do not add Redux, Zustand, or another state library.
+- **Mock data** — Keep mock/static app data in `src/data/mock.ts` instead of scattering it across components.
+- **Error reporting** — Use `reportAppError` from `src/lib/error-reporting.ts` in error boundaries; do not add third-party error tracking without approval.
+- **Testing** — Use Vitest and Testing Library, with tests in `src/test/`; do not add another test runner.
+- **Dependencies** — Before adding a package, check whether an installed library already covers the need and keep lockfiles in sync.

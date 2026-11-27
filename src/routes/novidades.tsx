@@ -10,8 +10,9 @@ export const Route = createFileRoute("/novidades")({
     meta: [
       { title: "Novidades — Vizinho Distribuidora" },
       { name: "description", content: "Os lançamentos que acabaram de chegar na geladeira." },
-      { property: "og:title", content: "Novidades — Vizinho Distribuidora" },
+      { property: "og:title", content: "Vizinho Distribuidora — Novidades" },
       { property: "og:description", content: "Os lançamentos que acabaram de chegar na geladeira." },
+      { property: "og:image", content: "/logo-vizinho.jpeg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

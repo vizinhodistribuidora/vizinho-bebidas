@@ -6,10 +6,11 @@ import { products, combos, brl } from "@/data/mock";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Área do Lojista — Vizinho Distribuidora" },
-      { name: "description", content: "Painel de pedidos, estoque e vitrine da loja." },
-      { property: "og:title", content: "Área do Lojista — Vizinho Distribuidora" },
-      { property: "og:description", content: "Painel de pedidos, estoque e vitrine da loja." },
+      { title: "Vizinho Distribuidora — Área do Lojista" },
+      { name: "description", content: "Painel de pedidos, estoque e vitrine da Vizinho Distribuidora." },
+      { property: "og:title", content: "Vizinho Distribuidora — Área do Lojista" },
+      { property: "og:description", content: "Painel de pedidos, estoque e vitrine da Vizinho Distribuidora." },
+      { property: "og:image", content: "/logo-vizinho.jpeg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

@@ -8,8 +8,9 @@ export const Route = createFileRoute("/perfil")({
     meta: [
       { title: "Meu Perfil — Vizinho Distribuidora" },
       { name: "description", content: "Seus dados, endereços e preferências de entrega." },
-      { property: "og:title", content: "Meu Perfil — Vizinho Distribuidora" },
+      { property: "og:title", content: "Vizinho Distribuidora — Meu Perfil" },
       { property: "og:description", content: "Seus dados, endereços e preferências de entrega." },
+      { property: "og:image", content: "/logo-vizinho.jpeg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
